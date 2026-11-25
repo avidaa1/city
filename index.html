@@ -614,7 +614,7 @@ if(document.readyState==='complete')start();else addEventListener('load',start);
 addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/* AVIDAA shell: shared header (or floating pill) + footer with the "Last updated" stamp. No outside calls, no tracking.
    Template tokens are replaced when a page is built: City --av-games Games and Worlds 2026-11-24 06:36 */
 (function(){
-  var NAME='City',SECTOR='--av-games',STAMP='2026-11-25 16:44',HOME='https://avidaa1.github.io/';
+  var NAME='City',SECTOR='--av-games',STAMP='2026-11-25 18:36',HOME='https://avidaa1.github.io/';
   var ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function build(){
     if(!document.body||document.querySelector('.av-footer'))return;
@@ -737,112 +737,6 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
     window.__avBackWorldsPlace=place;
   }
   if(document.readyState==='complete'||document.readyState==='interactive')setTimeout(make,0);else addEventListener('DOMContentLoaded',function(){setTimeout(make,0);});
-})();
-</script>
-<script id="av-search-20261125">/* AVIDAA site search entry + deep-link highlight v1. No network, no tracking.
-   1) A search button in the shared header (or beside the home pill) and Ctrl+K or "/" open the home search (all pages, sections, tools, games).
-   2) Landing from a search result (#section-id or #find=Section%20name): scroll to the section and highlight it briefly. */
-(function () {
-  'use strict';
-  if (window.__avSearch) return; window.__avSearch = 1;
-  var HOME = 'https://avidaa1.github.io/', isHome = location.hostname.indexOf('github.io') >= 0 && /^\/?(index\.html)?$/.test(location.pathname);
-  var reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var css = '.av-sbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(5,8,24,.82);color:#fff;font:800 14px/1 system-ui,sans-serif;cursor:pointer;text-decoration:none;box-shadow:0 0 12px rgba(91,192,255,.3)}' +
-    '.av-sbtn:hover,.av-sbtn:focus-visible{outline:3px solid #FFD93D;outline-offset:2px}.av-sbtn svg{width:20px;height:20px}' +
-    '.av-sbtn.av-fixed{position:fixed;z-index:2147482500}' +
-    '.av-header .av-sbtn{margin-left:auto}' +
-    '@keyframes avHit{0%,100%{box-shadow:0 0 0 0 rgba(255,217,61,0)}30%{box-shadow:0 0 0 6px rgba(255,217,61,.75),0 0 30px 8px rgba(255,217,61,.55)}}' +
-    '.av-hit{outline:3px solid #FFD93D!important;outline-offset:4px;border-radius:6px;animation:avHit 1.1s ease-in-out 2}' +
-    '@media (prefers-reduced-motion:reduce){.av-hit{animation:none}}';
-  try { if (window.CSSStyleSheet && CSSStyleSheet.prototype.replaceSync && 'adoptedStyleSheets' in document) { var sh = new CSSStyleSheet(); sh.replaceSync(css); document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sh]); } else throw 0; }
-  catch (e) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
-  function goSearch(q) { location.href = HOME + '?search=1' + (q ? '&q=' + encodeURIComponent(q) : ''); }
-  function mkBtn() {
-    var b = document.createElement('a'); b.className = 'av-sbtn'; b.href = HOME + '?search=1'; b.setAttribute('aria-label', 'Search all AVIDAA pages');
-    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.8"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span class="av-slbl">Search</span>';
-    return b;
-  }
-  var UI = 'a,button,input,select,textarea,[onclick],[role=button]';
-  function busy(l, t, w, h, self) {
-    for (var yy = 0; yy < 3; yy++) for (var xx = 0; xx < 3; xx++) {
-      var els = document.elementsFromPoint(l + w * (xx + .5) / 3, t + h * (yy + .5) / 3);
-      for (var q = 0; q < els.length; q++) { if (els[q] === self || self.contains(els[q])) continue; if (els[q].matches && els[q].matches(UI)) return true; }
-    } return false;
-  }
-  function place() {
-    if (isHome || document.querySelector('.av-sbtn')) return;
-    var b = mkBtn(), hdr = document.querySelector('.av-header');
-    if (hdr) { hdr.appendChild(b); var hb = b.getBoundingClientRect(); if (hb.right > innerWidth + 1 || hb.left < 0) { b.querySelector('.av-slbl').style.display = 'none'; } return; }
-    var pill = document.querySelector('.av-pill'); if (!pill) return;
-    b.classList.add('av-fixed'); document.body.appendChild(b);
-    var pr = pill.getBoundingClientRect(), bw = b.getBoundingClientRect(), W = bw.width, H = bw.height;
-    var spots = [[pr.right + 8, pr.top], [pr.left - W - 8, pr.top], [pr.left, pr.bottom + 8], [pr.left, pr.top - H - 8]];
-    for (var i = 0; i < spots.length; i++) {
-      var l = spots[i][0], t = spots[i][1]; if (l < 4 || t < 4 || l + W > innerWidth - 4 || t + H > innerHeight - 4) continue;
-      b.style.left = l + 'px'; b.style.top = t + 'px'; if (!busy(l, t, W, H, b)) return;
-    }
-    b.querySelector('.av-slbl').style.display = 'none'; b.remove();   /* no free spot: no button, keyboard shortcut still works */
-  }
-  document.addEventListener('keydown', function (e) {
-    var k = (e.key || '').toLowerCase(), tg = ((document.activeElement || {}).tagName || '');
-    if (isHome) return;
-    if ((e.ctrlKey || e.metaKey) && k === 'k') { e.preventDefault(); goSearch(); }
-    else if (k === '/' && !/INPUT|TEXTAREA|SELECT/.test(tg) && !(document.activeElement && document.activeElement.isContentEditable)) { e.preventDefault(); goSearch(); }
-  });
-  /* ---------- landing from a search result ---------- */
-  var INV = /[​-‏‪-‮⁠-⁤﻿­]/g;
-  function norm(t) { return String(t || '').replace(INV, '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
-  function visible(el) { return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
-  function ntext(e) { return norm(e.innerText || e.textContent); }
-  function findByText(t) {
-    var n = norm(t).slice(0, 90), pri = 'h1,h2,h3,h4,h5,[role=tab],button,.tab,.nav-btn,dt,summary,strong,b,[class*="name"],[class*="title"]', best = null, i, x;
-    var els = document.querySelectorAll(pri);
-    for (i = 0; i < els.length; i++) { x = ntext(els[i]); if (x === n) return els[i]; if (!best && x.indexOf(n) === 0 && x.length < n.length + 30) best = els[i]; }
-    if (best) return best;
-    var all = document.body.querySelectorAll('*'), lim = Math.min(all.length, 8000);
-    for (i = 0; i < lim; i++) { var e = all[i]; if (e.children.length > 3 || e.tagName === 'SCRIPT' || e.tagName === 'STYLE') continue; x = ntext(e); if (x === n) return e; }
-    return null;
-  }
-  function esc(v) { return String(v).replace(/["\\]/g, ''); }
-  function controllers(id) {
-    var keys = Array.isArray(id) ? id.slice() : [id]; id = keys[0] || ''; var k2 = id.replace(/^(page|pg|p|panel|tab|sec|section|view|screen)[-_]/i, ''); if (k2 && k2 !== id) keys.push(k2);
-    var sel = [];
-    keys.forEach(function (k) { k = esc(k);
-      sel.push('[aria-controls="' + k + '"]', '[data-tab="' + k + '"]', '[data-target="' + k + '"]', '[data-panel="' + k + '"]', '[data-page="' + k + '"]', '[data-p="' + k + '"]', '[data-view="' + k + '"]', '[data-section="' + k + '"]', 'a[href="#' + k + '"]',
-        '[onclick*="\'' + k + '\'"]', '[onclick*="\\"' + k + '\\""]', '[data-go="' + k + '"]', '[data-nav="' + k + '"]', '[data-open="' + k + '"]', '#nb-' + k, '#nav-' + k, '#tab-' + k, '#btn-' + k, '#np-' + k, '#t-' + k, '#n-' + k);
-    });
-    try { return [].slice.call(document.querySelectorAll(sel.join(','))); } catch (e) { return []; }
-  }
-  function reveal(el) {
-    for (var tries = 0; tries < 5 && !visible(el); tries++) {
-      var hid = null;
-      for (var p = el; p && p !== document.body; p = p.parentElement) { if (!visible(p)) { hid = p; } else if (hid) break; }
-      var cur = el, target = null; for (var q = el; q && q !== document.body; q = q.parentElement) { if (!visible(q) && (q.id || (q.getAttribute && (q.getAttribute('data-path') || q.getAttribute('data-cat'))))) { target = q; } }
-      if (!target) target = hid; if (!target) break;
-      var ks = []; if (target.id) ks.push(target.id); ['data-path', 'data-cat', 'data-tab', 'data-page', 'data-id', 'data-key'].forEach(function (at) { var v = target.getAttribute && target.getAttribute(at); if (v) ks.push(v); }); if (!ks.length) break;
-      var cs = controllers(ks); if (!cs.length) break;
-      for (var c = 0; c < cs.length; c++) { try { cs[c].click(); } catch (e) {} if (visible(el)) return; }
-    }
-  }
-  function flash(el) {
-    try { el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); } catch (e) { el.scrollIntoView(); }
-    el.classList.add('av-hit'); setTimeout(function () { el.classList.remove('av-hit'); }, 3200);
-  }
-  function land() {
-    var h = location.hash; if (!h || h.length < 2) return;
-    var want = null, byId = null;
-    try { if (h.indexOf('#find=') === 0) want = decodeURIComponent(h.slice(6)); else byId = decodeURIComponent(h.slice(1)); } catch (e) { return; }
-    var tries = 0;
-    (function attempt() {
-      var el = byId ? document.getElementById(byId) : (want ? findByText(want) : null);
-      if (el) { if (!visible(el)) reveal(el); if (visible(el)) { flash(el); return; } }
-      if (++tries < 22) setTimeout(attempt, 400);
-    })();
-  }
-  window.__avSearch = { goSearch: goSearch, land: land, findByText: findByText };
-  function init() { place(); setTimeout(place, 1500); land(); }
-  if (document.readyState === 'complete') setTimeout(init, 200); else addEventListener('load', function () { setTimeout(init, 200); });
-  addEventListener('hashchange', land);
 })();
 </script>
 <script id="av-brand-20261125">window.AV_BRAND_HUE=30;window.AV_BRAND_STATIC=1;
@@ -980,8 +874,8 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
   function bounce(o, m) { if (o.x < m) o.vx = Math.abs(o.vx); if (o.x > W - m) o.vx = -Math.abs(o.vx); if (o.y < m) o.vy = Math.abs(o.vy); if (o.y > H - m) o.vy = -Math.abs(o.vy); }
   function near(o, r) { var dx = o.x - cursor().x, dy = o.y - cursor().y, d = Math.hypot(dx, dy); return d < r ? { dx: dx, dy: dy, d: d || 1 } : null; }
   function cursor() { return pad.on ? pad : ptr; }
-  function flee(o, r, f) { var n = near(o, r); if (n) { var k = (1 - n.d / r) * f; o.vx += n.dx / n.d * k; o.vy += n.dy / n.d * k; return true; } return false; }
-  function attract(o, r, f) { var n = near(o, r); if (n) { var k = (1 - n.d / r) * f; o.vx -= n.dx / n.d * k; o.vy -= n.dy / n.d * k; return true; } return false; }
+  function flee(o, r, f) { var af = aff(); r = r * (1 - .45 * af); f = f * (1 - .4 * af); var n = near(o, r); if (n) { var k = (1 - n.d / r) * f; o.vx += n.dx / n.d * k; o.vy += n.dy / n.d * k; return true; } return false; }
+  function attract(o, r, f) { var af = aff(); r = r * (1 + .5 * af); f = f * (1 + .6 * af); var n = near(o, r); if (n) { var k = (1 - n.d / r) * f; o.vx -= n.dx / n.d * k; o.vy -= n.dy / n.d * k; return true; } return false; }
 
   K.fireflies = { n: 22, make: function () { return { x: rs(0, W), y: rs(0, H), vx: 0, vy: 0, a: rs(0, 6.28), ph: rs(0, 6.28), s: rs(1.6, 3) }; },
     step: function (o, dt) { wander(o, dt, 26, 5); attract(o, 150, 90 * dt * 60 / 60); damp(o, dt, 1.6); o.x += o.vx * dt; o.y += o.vy * dt; wrap(o, 20); },
@@ -1078,13 +972,17 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
     var kinds = (THEME.kinds || ['fireflies']), budget = CAP;
     kinds.forEach(function (name) { var k = K[name]; if (!k) return; var n = Math.min(k.n, Math.max(1, Math.floor(budget / kinds.length))); for (var i = 0; i < n; i++) { var o = k.make(i); o.__k = k; objs.push(o); } });
     if (objs.length > CAP) objs.length = CAP;
+    returning(); carriers();
   }
   function draw(t, still) {
     ctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < objs.length; i++) { var o = objs[i]; try { o.__k.draw(o, t); } catch (e) {} }
+    for (var i = 0; i < objs.length; i++) { var o = objs[i]; try { o.__k.draw(o, t); } catch (e) {} if (o.g !== undefined) rune(o.g, o.x, o.y - 15, t); }
+    sparks(t);
   }
   function frame(now) {
     raf = 0; if (!running) return;
+    if (document.documentElement.className.indexOf('av-life-off') >= 0) { cv.style.display = 'none'; last = 0; raf = requestAnimationFrame(frame); return; }   /* pages can switch the background off (games: menu only) */
+    if (cv.style.display === 'none') cv.style.display = '';
     var s = performance.now(); var dt = Math.min(.05, (now - (last || now)) / 1000); last = now; var t = (now - t0) / 1000;
     pollPad(); if (ptr.on && now - ptr.t > 4000) ptr.on = 0;
     for (var i = 0; i < objs.length; i++) { var o = objs[i]; o.__k.step(o, dt, t, objs); }
@@ -1096,10 +994,11 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
   }
   function start() { if (running || reduced) return; running = true; last = 0; raf = requestAnimationFrame(frame); }
   function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
-  function pollPad() { try { var g = navigator.getGamepads && navigator.getGamepads(); if (!g) return; for (var i = 0; i < g.length; i++) { var p = g[i]; if (p && p.axes && p.axes.length >= 2) { var ax = Math.abs(p.axes[0]) > .2 ? p.axes[0] : 0, ay = Math.abs(p.axes[1]) > .2 ? p.axes[1] : 0; if (ax || ay) { pad.on = 1; pad.x = Math.min(W, Math.max(0, (pad.x || W / 2) + ax * 9)); pad.y = Math.min(H, Math.max(0, (pad.y || H / 2) + ay * 9)); pad.t = performance.now(); } else if (pad.on && performance.now() - pad.t > 3000) pad.on = 0; } } } catch (e) {} }
-  function pm(e) { ptr.x = e.clientX; ptr.y = e.clientY; ptr.on = 1; ptr.t = performance.now(); }
-  function tm(e) { var t = e.touches && e.touches[0]; if (t) { ptr.x = t.clientX; ptr.y = t.clientY; ptr.on = 1; ptr.t = performance.now(); } }
-  window.__avLife = { frames: 0, ms: 0, n: 0, running: function () { return running; }, cap: CAP, canvas: cv, kinds: THEME.kinds };
+  var padX = 0;
+  function pollPad() { try { var g = navigator.getGamepads && navigator.getGamepads(); if (!g) return; for (var i = 0; i < g.length; i++) { var p = g[i]; if (p && p.axes && p.axes.length >= 2) { var ax = Math.abs(p.axes[0]) > .2 ? p.axes[0] : 0, ay = Math.abs(p.axes[1]) > .2 ? p.axes[1] : 0; var bx = !!(p.buttons && p.buttons[0] && p.buttons[0].pressed); if (bx && !padX && pad.on) pick(pad.x, pad.y); padX = bx; if (ax || ay) { pad.on = 1; pad.x = Math.min(W, Math.max(0, (pad.x || W / 2) + ax * 9)); pad.y = Math.min(H, Math.max(0, (pad.y || H / 2) + ay * 9)); pad.t = performance.now(); } else if (pad.on && performance.now() - pad.t > 3000) pad.on = 0; } } } catch (e) {} }
+  function pm(e) { ptr.x = e.clientX; ptr.y = e.clientY; ptr.on = 1; ptr.t = performance.now(); if (e.type === 'pointerdown') { touched(); pick(e.clientX, e.clientY); } }
+  function tm(e) { var t = e.touches && e.touches[0]; if (t) { ptr.x = t.clientX; ptr.y = t.clientY; ptr.on = 1; ptr.t = performance.now(); if (e.type === 'touchstart') { touched(); pick(t.clientX, t.clientY); } } }
+  window.__avLife = { objs: function () { return objs; }, memCount: function () { return { frag: mem.fr.length, open: mem.open, aff: aff(), visits: mem.visits[path] }; }, frames: 0, ms: 0, n: 0, running: function () { return running; }, cap: CAP, canvas: cv, kinds: THEME.kinds };
   window.addEventListener('pointermove', pm, { passive: true }); window.addEventListener('pointerdown', pm, { passive: true });
   window.addEventListener('touchstart', tm, { passive: true }); window.addEventListener('touchmove', tm, { passive: true });
   window.addEventListener('resize', function () { size(); build(); if (reduced) draw(0, true); });
@@ -1120,9 +1019,167 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
       window.__avLife.overlay = over;
     } catch (e) {}
   }
+
+  /* ---------- the visitor is remembered on this device only; a small hunt lives in the creatures (local, no network) ---------- */
+  var MEMKEY = 'avidaa.life.v1', NFR = 24, NEED = 12;
+  var mem = (function () { try { var j = JSON.parse(localStorage.getItem(MEMKEY) || 'null'); if (j && j.v === 1 && j.fr) return j; } catch (e) {} return { v: 1, visits: {}, aff: {}, fr: [], open: 0, last: {} }; })();
+  function save() { try { localStorage.setItem(MEMKEY, JSON.stringify(mem)); } catch (e) {} }
+  var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+  mem.visits[path] = (mem.visits[path] || 0) + 1; save();
+  function aff() { return Math.min(1, mem.aff[path] || 0); }
+  var lastSave = 0;
+  function touched() { mem.aff[path] = Math.min(1, (mem.aff[path] || 0) + .03); mem.last[path] = { x: ptr.x / (W || 1), y: ptr.y / (H || 1) }; var n = Date.now(); if (n - lastSave > 2000) { lastSave = n; save(); } }
+  function returning() {
+    var l = mem.last[path]; if (!l || (mem.visits[path] || 0) < 2) return;
+    for (var i = 0; i < objs.length; i += 2) { var o = objs[i]; if (o.x === undefined || o.__k === K.helix || o.__k === K.waves) continue; o.x = Math.min(W, Math.max(0, l.x * W + (Math.random() - .5) * 220)); o.y = Math.min(H, Math.max(0, l.y * H + (Math.random() - .5) * 220)); }
+  }
+  function hash(str) { var h = 7; for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 1000003; return h; }
+  var NOCARRY = [K.flowers, K.helix, K.waves, K.eggs, K.satellites, K.meteors];
+  function carriers() {
+    if (mem.open) return; var h = hash(path), ids = [h % NFR, (h * 5 + 7) % NFR]; if (ids[1] === ids[0]) ids[1] = (ids[1] + 1) % NFR;
+    ids = ids.filter(function (x) { return mem.fr.indexOf(x) < 0; }); if (!ids.length) return;
+    var cand = objs.filter(function (o) { return NOCARRY.indexOf(o.__k) < 0 && o.x !== undefined; });
+    for (var k = 0; k < ids.length && cand.length; k++) { var o = cand.splice(Math.floor(Math.random() * cand.length), 1)[0]; o.g = ids[k]; }
+  }
+  function rune(id, x, y, t) {
+    var a = .32 + .22 * Math.sin(t * 2 + id), r = 5; ctx.save(); ctx.translate(x, y); ctx.strokeStyle = 'rgba(190,255,210,' + a + ')'; ctx.lineWidth = 1.2; ctx.beginPath();
+    var s = id * 9301 + 49297, px = 0, py = 0; for (var i = 0; i < 4; i++) { s = (s * 233280 + 12345) % 1000003; var nx = ((s % 11) - 5) * r / 5, ny = (((s >> 3) % 11) - 5) * r / 5; if (i === 0) ctx.moveTo(nx, ny); else ctx.lineTo(nx, ny); px = nx; py = ny; } ctx.stroke(); ctx.restore();
+  }
+  var fx = [];
+  function sparks(t) { for (var i = fx.length - 1; i >= 0; i--) { var e = fx[i], k = (performance.now() - e.t) / 700; if (k >= 1) { fx.splice(i, 1); continue; } ctx.strokeStyle = 'rgba(200,255,220,' + (1 - k) + ')'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(e.x, e.y, 6 + k * 26, 0, 6.28); ctx.stroke(); } }
+  function pick(x, y) {
+    if (mem.open) return;
+    for (var i = 0; i < objs.length; i++) { var o = objs[i]; if (o.g === undefined) continue; if (Math.hypot(o.x - x, o.y - y) <= 28) {
+      if (mem.fr.indexOf(o.g) < 0) mem.fr.push(o.g); delete o.g; fx.push({ x: o.x, y: o.y, t: performance.now() }); save();
+      if (mem.fr.length >= NEED) { mem.open = 1; save(); tunnel(); } return; } }
+  }
+  function tunnel() {
+    if (document.getElementById('av-tunnel') || !document.body) return;
+    var a = document.createElement('a'); a.id = 'av-tunnel'; a.href = 'https://avidaa1.github.io/rabbit/'; a.rel = 'noopener'; a.setAttribute('aria-label', 'A tunnel has opened');
+    a.style.cssText = 'position:fixed;z-index:2147482400;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,#000 0 30%,#0f3 55%,#052 100%);box-shadow:0 0 18px #0f3,0 0 40px rgba(0,255,80,.5);border:2px solid #9fb';
+    var spots = [[8, innerHeight - 56 - 34], [innerWidth - 56, innerHeight - 56 - 34], [8, 70], [innerWidth - 56, 70]];
+    var UI = 'a,button,input,select,textarea,[onclick],[role=button]';
+    for (var s = 0; s < spots.length; s++) {
+      var ok = true; for (var yy = 0; yy < 3 && ok; yy++) for (var xx = 0; xx < 3 && ok; xx++) { var els = document.elementsFromPoint(spots[s][0] + 48 * (xx + .5) / 3, spots[s][1] + 48 * (yy + .5) / 3); for (var q = 0; q < els.length; q++) if (els[q].matches && els[q].matches(UI)) { ok = false; break; } }
+      if (ok) { a.style.left = spots[s][0] + 'px'; a.style.top = spots[s][1] + 'px'; document.body.appendChild(a); return; }
+    }
+  }
+  if (mem.open) setTimeout(tunnel, 2200);
   setTimeout(placement, 1800);
   size(); build(); t0 = performance.now();
   if (reduced) draw(0, true); else start();
+})();
+</script>
+<script id="av-search-20261125">/* AVIDAA site search entry + deep-link highlight v1. No network, no tracking.
+   1) A search button in the shared header (or beside the home pill) and Ctrl+K or "/" open the home search (all pages, sections, tools, games).
+   2) Landing from a search result (#section-id or #find=Section%20name): scroll to the section and highlight it briefly. */
+(function () {
+  'use strict';
+  if (window.__avSearch) return; window.__avSearch = 1;
+  var HOME = 'https://avidaa1.github.io/', isHome = location.hostname.indexOf('github.io') >= 0 && /^\/?(index\.html)?$/.test(location.pathname);
+  var reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var css = '.av-sbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(5,8,24,.82);color:#fff;font:800 14px/1 system-ui,sans-serif;cursor:pointer;text-decoration:none;box-shadow:0 0 12px rgba(91,192,255,.3)}' +
+    '.av-sbtn:hover,.av-sbtn:focus-visible{outline:3px solid #FFD93D;outline-offset:2px}.av-sbtn svg{width:20px;height:20px}' +
+    '.av-sbtn.av-fixed{position:fixed;z-index:2147482500}' +
+    '.av-header .av-sbtn{margin-left:auto}' +
+    '@keyframes avHit{0%,100%{box-shadow:0 0 0 0 rgba(255,217,61,0)}30%{box-shadow:0 0 0 6px rgba(255,217,61,.75),0 0 30px 8px rgba(255,217,61,.55)}}' +
+    '.av-hit{outline:3px solid #FFD93D!important;outline-offset:4px;border-radius:6px;animation:avHit 1.1s ease-in-out 2}' +
+    '@media (prefers-reduced-motion:reduce){.av-hit{animation:none}}';
+  try { if (window.CSSStyleSheet && CSSStyleSheet.prototype.replaceSync && 'adoptedStyleSheets' in document) { var sh = new CSSStyleSheet(); sh.replaceSync(css); document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sh]); } else throw 0; }
+  catch (e) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+  function goSearch(q) { location.href = HOME + '?search=1' + (q ? '&q=' + encodeURIComponent(q) : ''); }
+  function mkBtn() {
+    var b = document.createElement('a'); b.className = 'av-sbtn'; b.href = HOME + '?search=1'; b.setAttribute('aria-label', 'Search all AVIDAA pages');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.8"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span class="av-slbl">Search</span>';
+    return b;
+  }
+  var UI = 'a,button,input,select,textarea,[onclick],[role=button]';
+  function busy(l, t, w, h, self) {
+    for (var yy = 0; yy < 3; yy++) for (var xx = 0; xx < 3; xx++) {
+      var els = document.elementsFromPoint(l + w * (xx + .5) / 3, t + h * (yy + .5) / 3);
+      for (var q = 0; q < els.length; q++) { if (els[q] === self || self.contains(els[q])) continue; if (els[q].matches && els[q].matches(UI)) return true; }
+    } return false;
+  }
+  function place() {
+    if (isHome || document.querySelector('.av-sbtn')) return;
+    var b = mkBtn(), hdr = document.querySelector('.av-header');
+    if (hdr) {
+      hdr.appendChild(b); var hb = b.getBoundingClientRect(); if (hb.right > innerWidth + 1 || hb.left < 0) { b.querySelector('.av-slbl').style.display = 'none'; hb = b.getBoundingClientRect(); }
+      if (!busy(hb.left, hb.top, hb.width, hb.height, b)) return;        /* something of the page sits there: float it in a free corner instead */
+      b.remove(); b.querySelector('.av-slbl').style.display = '';
+    }
+    var pill0 = document.querySelector('.av-pill');
+    var pill = pill0;
+    b.classList.add('av-fixed'); document.body.appendChild(b);
+    var bw = b.getBoundingClientRect(), W = bw.width, H = bw.height, spots;
+    if (pill) { var pr = pill.getBoundingClientRect(); spots = [[pr.right + 8, pr.top], [pr.left - W - 8, pr.top], [pr.left, pr.bottom + 8], [pr.left, pr.top - H - 8]]; }
+    else spots = [[innerWidth - W - 8, 8], [8, 8], [innerWidth - W - 8, 64], [8, 64], [innerWidth - W - 8, innerHeight - H - 40], [8, innerHeight - H - 40]];
+    for (var i = 0; i < spots.length; i++) {
+      var l = spots[i][0], t = spots[i][1]; if (l < 4 || t < 4 || l + W > innerWidth - 4 || t + H > innerHeight - 4) continue;
+      b.style.left = l + 'px'; b.style.top = t + 'px'; if (!busy(l, t, W, H, b)) return;
+    }
+    b.querySelector('.av-slbl').style.display = 'none'; b.remove();   /* no free spot: no button, keyboard shortcut still works */
+  }
+  document.addEventListener('keydown', function (e) {
+    var k = (e.key || '').toLowerCase(), tg = ((document.activeElement || {}).tagName || '');
+    if (isHome) return;
+    if ((e.ctrlKey || e.metaKey) && k === 'k') { e.preventDefault(); goSearch(); }
+    else if (k === '/' && !/INPUT|TEXTAREA|SELECT/.test(tg) && !(document.activeElement && document.activeElement.isContentEditable)) { e.preventDefault(); goSearch(); }
+  });
+  /* ---------- landing from a search result ---------- */
+  var INV = /[​-‏‪-‮⁠-⁤﻿­]/g;
+  function norm(t) { return String(t || '').replace(INV, '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
+  function visible(el) { return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
+  function ntext(e) { return norm(e.innerText || e.textContent); }
+  function findByText(t) {
+    var n = norm(t).slice(0, 90), pri = 'h1,h2,h3,h4,h5,[role=tab],button,.tab,.nav-btn,dt,summary,strong,b,[class*="name"],[class*="title"]', best = null, i, x;
+    var els = document.querySelectorAll(pri);
+    for (i = 0; i < els.length; i++) { x = ntext(els[i]); if (x === n) return els[i]; if (!best && x.indexOf(n) === 0 && x.length < n.length + 30) best = els[i]; }
+    if (best) return best;
+    var all = document.body.querySelectorAll('*'), lim = Math.min(all.length, 8000);
+    for (i = 0; i < lim; i++) { var e = all[i]; if (e.children.length > 3 || e.tagName === 'SCRIPT' || e.tagName === 'STYLE') continue; x = ntext(e); if (x === n) return e; }
+    return null;
+  }
+  function esc(v) { return String(v).replace(/["\\]/g, ''); }
+  function controllers(id) {
+    var keys = Array.isArray(id) ? id.slice() : [id]; id = keys[0] || ''; var k2 = id.replace(/^(page|pg|p|panel|tab|sec|section|view|screen)[-_]/i, ''); if (k2 && k2 !== id) keys.push(k2);
+    var sel = [];
+    keys.forEach(function (k) { k = esc(k);
+      sel.push('[aria-controls="' + k + '"]', '[data-tab="' + k + '"]', '[data-target="' + k + '"]', '[data-panel="' + k + '"]', '[data-page="' + k + '"]', '[data-p="' + k + '"]', '[data-view="' + k + '"]', '[data-section="' + k + '"]', 'a[href="#' + k + '"]',
+        '[onclick*="\'' + k + '\'"]', '[onclick*="\\"' + k + '\\""]', '[data-go="' + k + '"]', '[data-nav="' + k + '"]', '[data-open="' + k + '"]', '#nb-' + k, '#nav-' + k, '#tab-' + k, '#btn-' + k, '#np-' + k, '#t-' + k, '#n-' + k);
+    });
+    try { return [].slice.call(document.querySelectorAll(sel.join(','))); } catch (e) { return []; }
+  }
+  function reveal(el) {
+    for (var tries = 0; tries < 5 && !visible(el); tries++) {
+      var hid = null;
+      for (var p = el; p && p !== document.body; p = p.parentElement) { if (!visible(p)) { hid = p; } else if (hid) break; }
+      var cur = el, target = null; for (var q = el; q && q !== document.body; q = q.parentElement) { if (!visible(q) && (q.id || (q.getAttribute && (q.getAttribute('data-path') || q.getAttribute('data-cat'))))) { target = q; } }
+      if (!target) target = hid; if (!target) break;
+      var ks = []; if (target.id) ks.push(target.id); ['data-path', 'data-cat', 'data-tab', 'data-page', 'data-id', 'data-key'].forEach(function (at) { var v = target.getAttribute && target.getAttribute(at); if (v) ks.push(v); }); if (!ks.length) break;
+      var cs = controllers(ks); if (!cs.length) break;
+      for (var c = 0; c < cs.length; c++) { try { cs[c].click(); } catch (e) {} if (visible(el)) return; }
+    }
+  }
+  function flash(el) {
+    try { el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); } catch (e) { el.scrollIntoView(); }
+    el.classList.add('av-hit'); setTimeout(function () { el.classList.remove('av-hit'); }, 3200);
+  }
+  function land() {
+    var h = location.hash; if (!h || h.length < 2) return;
+    var want = null, byId = null;
+    try { if (h.indexOf('#find=') === 0) want = decodeURIComponent(h.slice(6)); else byId = decodeURIComponent(h.slice(1)); } catch (e) { return; }
+    var tries = 0;
+    (function attempt() {
+      var el = byId ? document.getElementById(byId) : (want ? findByText(want) : null);
+      if (el) { if (!visible(el)) reveal(el); if (visible(el)) { flash(el); return; } }
+      if (++tries < 22) setTimeout(attempt, 400);
+    })();
+  }
+  window.__avSearch = { goSearch: goSearch, land: land, findByText: findByText };
+  function init() { place(); setTimeout(place, 1500); land(); }
+  if (document.readyState === 'complete') setTimeout(init, 200); else addEventListener('load', function () { setTimeout(init, 200); });
+  addEventListener('hashchange', land);
 })();
 </script>
 </body>
